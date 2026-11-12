@@ -148,6 +148,13 @@ html {
   justify-content: center;
   height: 85vh;
   text-align: center;
+
+    /* タイトルを中央配置 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
   background: linear-gradient(
         60deg,
         #543ab7,
@@ -163,6 +170,7 @@ html {
     padding: 40px 20px 160px;
 }
 
+
 .mv-title {
   font-size: 3rem;
   font-weight: bold;
@@ -170,6 +178,7 @@ html {
   margin-bottom: 5px;
   letter-spacing: .1em;
 }
+
 .mv-subtitle {
   font-size: 1.2rem;
   font-weight: bold;
@@ -195,6 +204,19 @@ canvas {
     color: white;
     z-index: 10;
 }
+
+
+/* 背景Canvas */
+#particleCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
 
 /*--------------------------------
  Works
