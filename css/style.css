@@ -282,8 +282,7 @@ canvas {
   justify-content: space-between;
   width: 48%;
   margin-bottom: 50px;
-  transition:background-color 0.7s ease;
-  border-radius: 50px 0 50px 0;
+  border-radius: 50px 0 0 0;
 }
 
 .skill-img {
@@ -297,8 +296,30 @@ canvas {
 }
 
 .skill-name {
-  margin-bottom: 10px;
+  position: relative;
+  display: inline-block; /* テキストの幅ぴったりに下線を引くため */
+  padding-bottom: 4px;   /* 文字と下線の余白 */
 }
+
+/* 下線の初期状態（幅0） */
+.skill-name::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px; /* 下線の太さ */
+  background-color: #007bff; /* 青系の色（お好みで調整してください） */
+  transform: scaleX(0);
+  transform-origin: left center; /* 左を起点にアニメーション */
+  transition: transform 0.3s ease-out; /* 0.3秒かけてすーっと動く */
+}
+
+/* JSでクラスが付与されたとき（幅100%に伸びる） */
+.skill-name.is-hovered::after {
+  transform: scaleX(1);
+}
+
 
 .skill-text {
   font-size: 14px;
@@ -306,7 +327,11 @@ canvas {
 }
 
 .skill-item.active{
-    background-color:#f7f7f7;
+  background-color:#ffffff;
+}
+
+.skill-item.active .skill-name::after {
+  transform: scaleX(1);
 }
 /*--------------------------------
  About

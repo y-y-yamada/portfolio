@@ -146,25 +146,28 @@ skillImg.forEach((img) => {
 
 /*---------------------------------------------------------------
 ------ここから　スキルエリアにマウスオーバーで色が変わる処理------
+------スキルネームにマウスオーバーで線が伸びる処理------
 ---------------------------------------------------------------*/
-const skillItems = document.querySelectorAll('.skill-item');
-//console.log(skillItems);
 
-skillItems.forEach((item)=>{
-    item.addEventListener('mouseover',()=>{
-        item.classList.toggle('active',true);
+document.addEventListener('DOMContentLoaded', () => {
+  const skillItems = document.querySelectorAll('.skill-item');
+
+  skillItems.forEach((item) => {
+    // スキルエリア（.skill-item）にマウスが乗ったとき
+    item.addEventListener('mouseenter', () => {
+      item.classList.add('active');
     });
-    item.addEventListener('mouseout',()=>{
-        item.classList.toggle('active',false);
+
+    // スキルエリア（.skill-item）からマウスが離れたとき
+    item.addEventListener('mouseleave', () => {
+      item.classList.remove('active');
     });
+  });
 });
-
 
 /*---------------------------------------------------------------
 ----------------------------ここまで----------------------------
 ---------------------------------------------------------------*/
-
-
 
 
 
@@ -219,10 +222,9 @@ setTimeout(() => {
 
 }, 1500);
 
-
-
-
-
+/*---------------------------------------------------------------
+------ここから　動く背景の設定------
+---------------------------------------------------------------*/
 
 
 class FloatingParticle {
@@ -310,4 +312,29 @@ document.addEventListener('DOMContentLoaded', () => {
         floatSpeed: 0.01
     });
 });
+
+/*---------------------------------------------------------------
+----------------------------ここまで----------------------------
+---------------------------------------------------------------*/
+
+
+
+/*---------------------------------------------------------------
+------ここから　トップへ戻るボタン処理------
+---------------------------------------------------------------*/
+
+// 要素を取得
+const pageTopBtn = document.querySelector('#js-page-top');
+
+// クリックイベントを設定
+pageTopBtn.addEventListener('click', () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth' // スムーズにスクロールさせる
+  });
+});
+
+/*---------------------------------------------------------------
+----------------------------ここまで----------------------------
+---------------------------------------------------------------*/
 

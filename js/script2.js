@@ -1,20 +1,19 @@
-$(function () {
+/*---------------------------------------------------------------
+------ここから　トップへ戻るボタン処理------
+---------------------------------------------------------------*/
 
-  //ページ内スクロール
-  var navHeight = $(".header").outerHeight();
+// 要素を取得
+const pageTopBtn = document.querySelector('#js-page-top');
 
-  $('a[href^="#"]').on("click", function () {
-    var href = $(this).attr("href");
-    var target = $(href == "#" || href == "" ? "html" : href);
-    var position = target.offset().top - navHeight;
-    $("html, body").animate({ scrollTop: position, }, 300, "swing");
-    return false;
+// クリックイベントを設定
+pageTopBtn.addEventListener('click', () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth' // スムーズにスクロールさせる
   });
-
-  //ページトップ
-  $("#js-page-top").on("click", function () {
-    $("body,html").animate({ scrollTop: 0, }, 300);
-    return false;
-  });
-
 });
+
+/*---------------------------------------------------------------
+----------------------------ここまで----------------------------
+---------------------------------------------------------------*/
+
