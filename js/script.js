@@ -220,3 +220,94 @@ setTimeout(() => {
 }, 1500);
 
 
+
+
+
+
+
+class FloatingParticle {
+    constructor(canvas, options = {}) {
+        this.canvas = canvas;
+        this.ctx = canvas.getContext('2d');
+        this.particles = [];
+        this.time = 0;
+        this.options = {
+            particleCount: options.particleCount || 80,
+            particleSize: options.particleSize || 2,
+            particleColor: options.particleColor || '#4ecdc4',
+            floatSpeed: options.floatSpeed || 0.01,
+            ...options
+        };
+
+        this.init();
+    }
+
+    init() {
+        this.resize();
+        this.createParticles();
+        this.animate();
+
+        window.addEventListener('resize', () => this.resize());
+    }
+
+    resize() {
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+    }
+
+    createParticles() {
+        for (let i = 0; i < this.options.particleCount; i++) {
+            this.particles.push({
+                x: Math.random() * this.canvas.width,
+                y: Math.random() * this.canvas.height,
+                size: Math.random() * this.options.particleSize + 1,
+                angle: Math.random() * Math.PI * 2,
+                speed: Math.random() * 0.5 + 0.5,
+                amplitude: Math.random() * 50 + 20
+            });
+        }
+    }
+
+    animate() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+        this.particles.forEach(particle => {
+            // 浮遊運動
+            particle.angle += this.options.floatSpeed * particle.speed;
+
+            const floatX = Math.sin(particle.angle) * particle.amplitude;
+            const floatY = Math.cos(particle.angle * 0.5) * particle.amplitude * 0.5;
+
+            // 位置更新
+            particle.x += floatX * 0.01;
+            particle.y += floatY * 0.01;
+
+            // 画面端での処理
+            if (particle.x < 0) particle.x = this.canvas.width;
+            if (particle.x > this.canvas.width) particle.x = 0;
+            if (particle.y < 0) particle.y = this.canvas.height;
+            if (particle.y > this.canvas.height) particle.y = 0;
+
+            // 粒子の描画
+            this.ctx.beginPath();
+            this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+            this.ctx.fillStyle = this.options.particleColor;
+            this.ctx.fill();
+        });
+
+        this.time += this.options.floatSpeed;
+        requestAnimationFrame(() => this.animate());
+    }
+}
+
+// 初期化
+document.addEventListener('DOMContentLoaded', () => {
+    const canvas = document.getElementById('particleCanvas');
+    new FloatingParticle(canvas, {
+        particleCount: 80,
+        particleSize: 2,
+        particleColor: '#4ecdc4',
+        floatSpeed: 0.01
+    });
+});
+
